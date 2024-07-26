@@ -36,7 +36,7 @@ const Login = () => {
         <div className="flex  justify-center items-center h-[70%] sm:h-[70vh] w-[90%] ts:w-[340px] lg:w-[58%] lg:min-w-[380px] bg-indigo-100 rounded-md flex-col">
           <div className="flex flex-col w-full  items-center justify-center  mb-6">
             <NavLink to="/" className="text-2xl mb-2">
-              {/* <img className="flex w-32 h-12 " src="/images/logo.png" alt="" /> */}
+              <img className="flex w-32 h-12 " src="/images/logo.png" alt="" />
               BlueOcean
             </NavLink>
             <div className="flex font-bold">Hello!</div>
@@ -64,7 +64,7 @@ const Login = () => {
             >
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="UserName"
+                placeholder="Email"
               />
             </Form.Item>
             <Form.Item
@@ -83,9 +83,15 @@ const Login = () => {
               />
             </Form.Item>
 
-            <div className=" text-blue-700 flex items-center justify-end w-full border mb-1">
+            {/* <div className=" text-blue-700 flex items-center justify-end w-full border mb-1">
               Forgot password
-            </div>
+            </div> */}
+            <NavLink
+              to="/forgotPassword"
+              className=" text-blue-700 flex items-center justify-end w-full border mb-1"
+            >
+              Forgot password
+            </NavLink>
 
             <Form.Item>
               <Button

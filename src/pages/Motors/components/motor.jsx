@@ -2,91 +2,68 @@ import React from "react";
 import { Button } from "antd";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
 import { AiOutlineWhatsApp } from "react-icons/ai";
-import { LiaBedSolid } from "react-icons/lia";
-import { PiBathtubLight } from "react-icons/pi";
-import { CiLocationOn, CiRuler } from "react-icons/ci";
+import { CiLocationOn } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
-const PropertyCard = ({ property }) => {
+const MotorCard = ({ motor }) => {
   const navigate = useNavigate();
 
-  const formatNumber = (number) => {
-    return parseFloat(number.toString());
-  };
-
   const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/${property.contact_phone}`, "_blank");
+    window.open(`https://wa.me/${motor.contact_phone}`, "_blank");
   };
 
   const handleMailClick = () => {
     window.open(
-      `https://mail.google.com/mail/?view=cm&fs=1&to=${property.contact_email}`,
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${motor.contact_email}`,
       "_blank"
     );
   };
 
   const handlePhoneClick = () => {
-    window.location.href = `tel:${property.contact_phone}`;
+    window.location.href = `tel:${motor.contact_phone}`;
   };
 
   return (
     <div className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
       <div
         className="flex w-full sm:w-2/4 cursor-pointer"
-        onClick={() => navigate(`property/detail/${property.id}`)}
+        onClick={() => navigate(`/motor/detail/${motor.id}`)}
       >
         <img
           className="object-cover w-full h-64 sm:h-auto"
-          src={`http://127.0.0.1:8000${property?.property_images[0]?.image}`}
-          alt="Property"
+          src={`http://127.0.0.1:8000${motor?.images[0]?.image}`}
+          alt="Motor"
         />
       </div>
       <div className="flex flex-col justify-between p-4 w-full sm:w-2/3 bg-gradient-to-r from-gray-100 to-gray-50">
         <div>
           <div className="flex items-baseline mb-2">
             <div className="text-2xl font-bold text-blue-600">
-              {property?.currency.toUpperCase()}{" "}
-              {formatNumber(property?.rent_amount)}
-            </div>
-            <div className="text-lg font-medium ml-2 text-gray-500">
-              {property?.rent_period}
+              {motor?.currency.toUpperCase()} {motor?.price}
             </div>
           </div>
           <div className="text-sm mt-1 first-letter:capitalize font-medium text-gray-600">
-            {property?.property_type}
+            {motor?.brand_name} - {motor?.model} ({motor?.year})
           </div>
-
           <div className="flex text-sm font-bold mt-2 text-gray-600 space-x-4">
             <span className="flex items-center">
-              <LiaBedSolid className="mr-1" />
-              {property?.bed}
+              Engine Capacity: {motor?.engine_capacity} cc
             </span>
             <span className="flex items-center">
-              <PiBathtubLight className="mr-1" />
-              {property?.bathrooms}
-            </span>
-            <span className="flex items-center">
-              <CiRuler className="mr-1" />
-              {formatNumber(property?.area)} sqft
+              Horsepower: {motor?.horsepower} hp
             </span>
           </div>
           <div className="font-medium text-lg text-gray-800 mt-2">
-            {property?.title}
+            {motor?.name}
           </div>
-
           <div className="text-sm font-bold mt-1 flex items-center text-gray-600">
             <CiLocationOn className="w-4 mr-1" style={{ fontWeight: "bold" }} />
-            {property?.city}, {property?.address}
-          </div>
-
-          <div className="items-center font-medium mt-2 text-gray-600">
-            Rating: **** {property?.ratings}
+            {motor?.location || "Location not specified"}
           </div>
           <div className="items-center font-medium mt-2 text-gray-600">
-            Available From: {property?.available_from}
+            Mileage: {motor?.mileage} km
           </div>
         </div>
-
         <div className="flex mt-4 space-x-2">
           <Button
             type="primary"
@@ -118,4 +95,4 @@ const PropertyCard = ({ property }) => {
   );
 };
 
-export default PropertyCard;
+export default MotorCard;

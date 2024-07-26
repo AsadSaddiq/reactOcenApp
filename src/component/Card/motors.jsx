@@ -1,7 +1,7 @@
 import React from "react";
 
 const MotorCard = ({ element, index }) => {
-  console.log(element);
+  // console.log(element);
   return (
     <div
       key={index}

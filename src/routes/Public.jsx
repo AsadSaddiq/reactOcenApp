@@ -1,10 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
+import ForgetPassword from "../pages/ForgetPassword";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import DetailPag from "../pages/PropertyRent/DetailPag";
+import PropertyDetailPage from "../pages/PropertyRent/DetailPag";
 import Motors from "../pages/Motors";
 import Favorites from "../pages/Favorites";
 import Jobs from "../pages/Jobs";
@@ -15,8 +16,10 @@ import Classifieds from "../pages/Classifieds";
 import Furniture from "../pages/Furniture";
 import Community from "../pages/Community";
 import PageContainer from "../Container/PageContainer";
-import MotorsDetailPag from "../pages/Motors/DetailPag";
+import MotorDetailPag from "../pages/Motors/DetailPag";
 import FurnitureDetailPage from "../pages/Furniture/furnitureDetail";
+import ResetPassword from "../pages/ResetPassword";
+import ElectronicsDetailPage from "../pages/MobileTab/DetailPag";
 
 const Public = () => {
   return (
@@ -25,10 +28,12 @@ const Public = () => {
         <Route path="/me" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgotPassword" element={<ForgetPassword />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/" element={<PageContainer />}>
           <Route path="/" element={<Home />} />
-          <Route path="/detail/:id" element={<DetailPag />} />
-          <Route path="/motors/detail/:id" element={<MotorsDetailPag />} />
+          <Route path="property/detail/:id" element={<PropertyDetailPage />} />
+          <Route path="/motor/detail/:id" element={<MotorDetailPag />} />
           <Route path="/motors" element={<Motors />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/jobs" element={<Jobs />} />
@@ -40,6 +45,10 @@ const Public = () => {
           <Route
             path="/furniture/detail/:id"
             element={<FurnitureDetailPage />}
+          />
+          <Route
+            path="/electronics/detail/:id"
+            element={<ElectronicsDetailPage />}
           />
           <Route path="/community" element={<Community />} />
         </Route>

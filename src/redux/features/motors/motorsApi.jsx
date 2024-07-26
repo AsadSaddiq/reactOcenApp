@@ -13,7 +13,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getMotorsApi: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: `/motors/motors/`,
         method: "GET",
       }),
@@ -26,8 +26,22 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 600,
     }),
-    getFeatureApi: builder.query({
+    updateMotorApi: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `motors/motors/${id}/`,
+        method: "PUT",
+        body: formData,
+      }),
+      keepUnusedDataFor: 600,
+    }),
+    deleteMotorApi: builder.query({
       query: (id) => ({
+        url: `motors/motors/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    getFeatureApi: builder.query({
+      query: () => ({
         url: `motors/feature/`,
         method: "GET",
       }),
@@ -41,4 +55,6 @@ export const {
   useGetMotorsApiQuery,
   useGetMotorsByIdApiQuery,
   useGetFeatureApiQuery,
+  useUpdateMotorApiMutation,
+  useDeleteMotorApiQuery,
 } = authApi;

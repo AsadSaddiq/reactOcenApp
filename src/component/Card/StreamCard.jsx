@@ -1,6 +1,15 @@
 import React from "react";
-const FurnitureCard = ({ element, index }) => {
-  // console.log(element);
+
+const StreamCard = ({ element, index }) => {
+  // Log the element for debugging
+  console.log(element);
+
+  // Determine the image source
+  const imageSrc =
+    element?.property_images && element.property_images.length > 0
+      ? `http://127.0.0.1:8000/${element.property_images[0].image}`
+      : "path_to_default_image"; // Provide a default image path or use a placeholder
+
   return (
     <div
       key={index}
@@ -9,7 +18,8 @@ const FurnitureCard = ({ element, index }) => {
       <div className="w-full h-32 overflow-hidden">
         <img
           className="rounded-t-md w-full h-full object-cover"
-          src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
+          src={imageSrc}
+          alt={element?.name || "Default Image"}
         />
       </div>
       <div className="flex flex-col p-2">
@@ -27,4 +37,4 @@ const FurnitureCard = ({ element, index }) => {
   );
 };
 
-export default FurnitureCard;
+export default StreamCard;

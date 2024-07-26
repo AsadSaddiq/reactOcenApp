@@ -3,33 +3,40 @@ import { apiSlice } from "../../api/apiSlice";
 export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
-    createMotorsApi: builder.mutation({
+    createElectronicsApi: builder.mutation({
       query: (data) => ({
-        url: `/motors/motors/`,
+        url: `/electronics/electronics/`,
         method: "POST",
         body: data,
       }),
       keepUnusedDataFor: 600,
     }),
-
     getElectronicsApi: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: `/electronics/electronics/`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
     }),
-    getFurnitureByIdApi: builder.query({
+    getElectronicsByIdApi: builder.query({
       query: (id) => ({
-        url: `/furniture/furniture/${id}`,
+        url: `/electronics/electronics/${id}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
     }),
-    getFeatureApi: builder.query({
+    updateElectronicsApi: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/electronics/electronics/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      keepUnusedDataFor: 600,
+    }),
+    deleteElectronicsApi: builder.query({
       query: (id) => ({
-        url: `motors/feature/`,
-        method: "GET",
+        url: `/electronics/electronics/${id}`,
+        method: "DELETE",
       }),
       keepUnusedDataFor: 600,
     }),
@@ -37,8 +44,9 @@ export const authApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateMotorsApiMutation,
+  useCreateElectronicsApiMutation,
   useGetElectronicsApiQuery,
-  useGetFurnitureByIdApiQuery,
-  useGetFeatureApiQuery,
+  useGetElectronicsByIdApiQuery,
+  useUpdateElectronicsApiMutation,
+  useDeleteElectronicsApiQuery,
 } = authApi;

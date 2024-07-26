@@ -160,14 +160,22 @@ const PropertyTable = () => {
               getRowId={(row) => row.id}
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => {
+                  console.log(row);
                   setRowSelection({
                     [row.id]: true,
                   });
                   setSelectedLicense(property.find((e) => e.id === row.id));
                   console.log("row.id");
                   console.log(row.id);
-                  navigate(`/admin/property/create`, {
-                    state: { propertyId: row.id },
+                  // navigate(`/admin/property/create`, {
+                  //   state: {
+                  //     propertyId: row.id,
+                  //   },
+                  // });
+                  navigate(`/admin/property/edit/${row.id}`, {
+                    state: {
+                      propertyId: row.id,
+                    },
                   });
                 },
                 selected: rowSelection[row.id],
@@ -211,3 +219,149 @@ const PropertyTable = () => {
 };
 
 export default PropertyTable;
+
+// import React, { useState, useMemo, useEffect } from "react";
+// import { MaterialReactTable } from "material-react-table";
+// import { Spin } from "antd";
+// import { useNavigate } from "react-router-dom";
+// import { useGetPropertyApiQuery } from "../../../redux/features/property/propertyApi";
+
+// const PropertyTable = () => {
+//   const [rowSelection, setRowSelection] = useState({});
+//   const [sorting, setSorting] = useState([]);
+//   const [pagination, setPagination] = useState({
+//     pageIndex: 0,
+//     pageSize: 10,
+//   });
+//   const [globalFilter, setGlobalFilter] = useState("");
+//   const { data: property, isError, isLoading } = useGetPropertyApiQuery();
+//   const navigate = useNavigate();
+
+//   const formatDate = (dateStr) => {
+//     const date = new Date(dateStr);
+//     const options = { day: "2-digit", month: "short", year: "numeric" };
+//     return date.toLocaleDateString("en-GB", options);
+//   };
+
+//   const filteredData = useMemo(() => {
+//     if (!globalFilter) return property;
+//     return property.filter((item) =>
+//       Object.values(item).some((value) =>
+//         String(value).toLowerCase().includes(globalFilter.toLowerCase())
+//       )
+//     );
+//   }, [globalFilter, isLoading]);
+
+//   const paginatedData = useMemo(() => {
+//     const startIndex = pagination.pageIndex * pagination.pageSize;
+//     const endIndex = startIndex + pagination.pageSize;
+//     return filteredData?.slice(startIndex, endIndex);
+//   }, [pagination, filteredData, isLoading]);
+
+//   const handleSearch = (val) => {
+//     setGlobalFilter(val.trim());
+//   };
+
+//   useEffect(() => {
+//     setPagination({ ...pagination, pageIndex: 0 });
+//   }, [pagination.pageSize]);
+
+//   const columns = useMemo(
+//     () => [
+//       {
+//         id: "id",
+//         columns: [
+//           {
+//             accessorKey: "property_type",
+//             header: "Type",
+//             minSize: 1,
+//             size: 1,
+//             maxSize: 1,
+//           },
+//           {
+//             accessorKey: "purpose",
+//             header: "Purpose",
+//             minSize: 1,
+//             size: 1,
+//             maxSize: 1,
+//           },
+//           {
+//             accessorKey: "address",
+//             header: "Address",
+//             minSize: 1,
+//             size: 1,
+//             maxSize: 1,
+//           },
+//           {
+//             accessorKey: "price",
+//             header: "Price",
+//             minSize: 1,
+//             size: 1,
+//             maxSize: 1,
+//           },
+//           {
+//             accessorKey: "available_from",
+//             header: "Available From",
+//             minSize: 1,
+//             size: 1,
+//             maxSize: 1,
+//           },
+//           {
+//             id: "actions",
+//             header: "Actions",
+//             cell: ({ row }) => (
+//               <button
+//                 onClick={() =>
+//                   navigate("/admin/property-form", {
+//                     state: { propertyId: row.original.id },
+//                   })
+//                 }
+//                 className="p-2 bg-yellow-500 text-white rounded"
+//               >
+//                 Edit
+//               </button>
+//             ),
+//           },
+//         ],
+//       },
+//     ],
+//     []
+//   );
+
+//   return (
+//     <>
+//       <div className="p-4">
+//         <div className="pb-4">
+//           <input
+//             type="text"
+//             placeholder="Search..."
+//             onChange={(e) => handleSearch(e.target.value)}
+//           />
+//         </div>
+//         {isLoading ? (
+//           <Spin />
+//         ) : isError ? (
+//           <p>Error loading data.</p>
+//         ) : (
+//           <MaterialReactTable
+//             columns={columns}
+//             data={paginatedData}
+//             enableRowSelection
+//             onRowSelectionChange={setRowSelection}
+//             state={{
+//               rowSelection,
+//               pagination,
+//               sorting,
+//               globalFilter,
+//             }}
+//             onPaginationChange={setPagination}
+//             onSortingChange={setSorting}
+//             onGlobalFilterChange={setGlobalFilter}
+//           />
+//         )}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default PropertyTable;

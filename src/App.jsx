@@ -1,13 +1,10 @@
 import React from "react";
-import Private from "./routes/Private";
-import Public from "./routes/Public";
+import Routes from "./routes";
 
-import Admin from "./pages/admin";
 const App = () => {
   return (
     <div className="bg-slate-50">
-      <Public />
-      <Private />
+      <Routes />
     </div>
   );
 };

@@ -74,7 +74,7 @@ const Table = () => {
             maxSize: 1,
           },
           {
-            accessorKey: "brand_name",
+            accessorKey: "brand",
             header: "Brand",
             minSize: 1,
             size: 1,
@@ -83,6 +83,13 @@ const Table = () => {
           {
             accessorKey: "model",
             header: "Model",
+            minSize: 0,
+            size: 1,
+            maxSize: 1,
+          },
+          {
+            accessorKey: "color",
+            header: "Color",
             minSize: 0,
             size: 1,
             maxSize: 1,

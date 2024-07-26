@@ -3,9 +3,9 @@ import { apiSlice } from "../../api/apiSlice";
 export const authApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
-    createMotorsApi: builder.mutation({
+    createFurnitureApi: builder.mutation({
       query: (data) => ({
-        url: `/motors/motors/`,
+        url: `/furniture/furniture/`,
         method: "POST",
         body: data,
       }),
@@ -13,7 +13,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getFurnitureApi: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: `/furniture/furniture/`,
         method: "GET",
       }),
@@ -26,10 +26,18 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 600,
     }),
-    getFeatureApi: builder.query({
+    updateFurnitureApi: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `furniture/furniture/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      keepUnusedDataFor: 600,
+    }),
+    deleteFurnitureByIdApi: builder.query({
       query: (id) => ({
-        url: `motors/feature/`,
-        method: "GET",
+        url: `/furniture/furniture/${id}`,
+        method: "DELETE",
       }),
       keepUnusedDataFor: 600,
     }),
@@ -37,8 +45,9 @@ export const authApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateMotorsApiMutation,
+  useCreateFurnitureApiMutation,
   useGetFurnitureApiQuery,
   useGetFurnitureByIdApiQuery,
-  useGetFeatureApiQuery,
+  useUpdateFurnitureApiMutation,
+  useDeleteFurnitureByIdApiQuery,
 } = authApi;

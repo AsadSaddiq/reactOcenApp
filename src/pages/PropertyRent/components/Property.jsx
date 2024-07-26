@@ -33,7 +33,7 @@ const PropertyCard = ({ property }) => {
     <div className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
       <div
         className="flex w-full sm:w-2/4 cursor-pointer"
-        onClick={() => navigate(`property/detail/${property.id}`)}
+        onClick={() => navigate(`/property/detail/${property.id}`)}
       >
         <img
           className="object-cover w-full h-64 sm:h-auto"

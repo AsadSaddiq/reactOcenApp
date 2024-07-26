@@ -163,6 +163,12 @@ const MotorsTable = () => {
                     [row.id]: true,
                   });
                   setSelectedLicense(motors.find((e) => e.Id === row.id));
+                  console.log(row.id);
+                  navigate(`/admin/motor/edit/${row.id}`, {
+                    state: {
+                      motorId: row.id,
+                    },
+                  });
                 },
                 selected: rowSelection[row.id],
                 sx: {

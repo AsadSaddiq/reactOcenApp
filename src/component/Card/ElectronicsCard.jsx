@@ -1,6 +1,8 @@
 import React from "react";
-const FurnitureCard = ({ element, index }) => {
+
+const ElectronicsCard = ({ element, index }) => {
   // console.log(element);
+
   return (
     <div
       key={index}
@@ -27,4 +29,4 @@ const FurnitureCard = ({ element, index }) => {
   );
 };
 
-export default FurnitureCard;
+export default ElectronicsCard;

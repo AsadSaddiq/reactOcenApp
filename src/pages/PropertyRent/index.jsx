@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PropertyCard from "../../component/Card/Property";
+// import PropertyCard from "../../component/Card/Property";
+import PropertyCard from "./components/Property";
 import { useGetPropertyApiQuery } from "../../redux/features/property/propertyApi";
 
 const PropertyRent = () => {

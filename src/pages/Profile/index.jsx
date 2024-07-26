@@ -112,7 +112,8 @@ const Profile = () => {
             </div>
             <Form.Item>
               <Button
-                className="flex items-center justify-center bg-myRed ml-4 py-5 px-10 font-bold text-white"
+                // className="flex items-center justify-center bg-myRed ml-4 py-5 px-10 font-bold text-white"
+                className="flex px-10 py-5 items-center justify-center font-bold"
                 htmlType="submit"
               >
                 Save

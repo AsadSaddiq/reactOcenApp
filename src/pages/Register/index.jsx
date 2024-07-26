@@ -24,14 +24,14 @@ const Register = () => {
               <NavLink to="/">BlueOcean</NavLink>
             </h1>
             <h2 className="text-3xl font-bold text-blue-700 justify-center items-center text-center">
-              FILL YOR NEED WITH SPEED OF LIGHT
+              FILL YOUR NEED WITH SPEED OF LIGHT
             </h2>
           </div>
           <img src="/images/img.png" />
         </div>
       </div>
       <div className="flex w-full lg:w-[50vw]  flex-column justify-center items-center">
-        <div className="flex border justify-center items-center h-[80vh] w-[90%] ts:w-[340px] lg:w-[58%] lg:min-w-[380px] bg-indigo-100 rounded-md flex-col">
+        <div className="flex border justify-center items-center h-[90vh] w-[90%] ts:w-[340px] lg:w-[58%] lg:min-w-[380px] bg-indigo-100 rounded-md flex-col">
           <div className="flex flex-col w-full items-center justify-center  mb-6">
             <NavLink to="/" className="text-2xl mb-2">
               {/* <img className="flex w-32 h-12 " src="/images/logo.png" alt="" /> */}
