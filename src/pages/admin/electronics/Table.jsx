@@ -169,7 +169,13 @@ const Table = () => {
                   setRowSelection({
                     [row.id]: true,
                   });
+                  console.log(row.id);
                   setSelectedLicense(electronics.find((e) => e.Id === row.id));
+                  navigate(`/admin/electronics/edit/${row.id}`, {
+                    state: {
+                      propertyId: row.id,
+                    },
+                  });
                 },
                 selected: rowSelection[row.id],
                 sx: {

@@ -165,8 +165,10 @@ const FurnitureTable = () => {
                   setSelectedLicense(furniture.find((e) => e.id === row.id));
                   console.log("row.id");
                   console.log(row.id);
-                  navigate(`/admin/furniture/create`, {
-                    state: { furnitureId: row.id },
+                  navigate(`/admin/furniture/edit/${row.id}`, {
+                    state: {
+                      propertyId: row.id,
+                    },
                   });
                 },
                 selected: rowSelection[row.id],

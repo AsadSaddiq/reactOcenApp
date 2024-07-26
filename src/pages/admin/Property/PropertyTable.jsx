@@ -167,11 +167,7 @@ const PropertyTable = () => {
                   setSelectedLicense(property.find((e) => e.id === row.id));
                   console.log("row.id");
                   console.log(row.id);
-                  // navigate(`/admin/property/create`, {
-                  //   state: {
-                  //     propertyId: row.id,
-                  //   },
-                  // });
+              
                   navigate(`/admin/property/edit/${row.id}`, {
                     state: {
                       propertyId: row.id,
