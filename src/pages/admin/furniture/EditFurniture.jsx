@@ -12,12 +12,15 @@ import {
   Space,
   message,
 } from "antd";
-import moment from "moment";
 import {
   useGetFurnitureByIdApiQuery,
   useUpdateFurnitureApiMutation,
 } from "../../../redux/features/furniture/furnitureApi";
 import { useParams, useNavigate } from "react-router-dom";
+import moment from "moment";
+import "moment/locale/en-gb"; // import your desired locale
+
+moment.locale("en-gb"); // set your desired locale globally
 
 const { TextArea } = Input;
 
@@ -114,8 +117,10 @@ const CURRENCY_CHOICES = [
   { value: "SGD", label: "Singapore Dollar" },
   { value: "other", label: "Other" },
 ];
+
 const EditFurnitureForm = () => {
   const { FurnitureId } = useParams();
+  const rootUrl = "localhost:8000";
   const [updateFurniture] = useUpdateFurnitureApiMutation();
   const {
     data: furniture,
@@ -125,13 +130,15 @@ const EditFurnitureForm = () => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (furniture) {
       form.setFieldsValue({
         ...furniture,
         available_from: furniture.available_from
           ? moment(furniture.available_from)
+          : null,
+        insurance_expiry_date: furniture.insurance_expiry_date
+          ? moment(furniture.insurance_expiry_date)
           : null,
       });
 
@@ -140,7 +147,7 @@ const EditFurnitureForm = () => {
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: img.image, // URL of the image
+          url: `http://localhost:8000/${img.image}`,
         })) || []
       );
     }
@@ -177,8 +184,8 @@ const EditFurnitureForm = () => {
   };
 
   const onFinish = async (values) => {
-    values.insurance_expiry_date =
-      values.insurance_expiry_date.format("YYYY-MM-DD");
+    // values.insurance_expiry_date =
+    //   values.insurance_expiry_date.format("YYYY-MM-DD");
     const formData = new FormData();
 
     for (let key in values) {

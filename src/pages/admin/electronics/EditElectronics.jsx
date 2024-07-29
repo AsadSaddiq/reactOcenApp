@@ -212,7 +212,7 @@ const EditElectronicsForm = () => {
       });
 
       setFileList(
-        electronics.electronics_images?.map((img) => ({
+        electronics.images?.map((img) => ({
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded

@@ -7,7 +7,10 @@ const MotorCard = ({ element, index }) => {
       key={index}
       className="flex w-full flex-col mb-4 rounded-md hover:bg-gray-200 hover:shadow-xl border"
     >
-      <div className="w-full h-32 overflow-hidden">
+      <div
+        className="w-full h-32 overflow-hidden"
+        onClick={() => navigate(`/motor/detail/${property.id}`)}
+      >
         <img
           className="rounded-t-md w-full h-full object-cover"
           src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
@@ -22,7 +25,7 @@ const MotorCard = ({ element, index }) => {
           {element?.price}
         </span>
         <span className="flex items-center whitespace-nowrap overflow-hidden text-ellipsis font-semibold">
-          Islamabad
+          {element?.city}
         </span>
       </div>
     </div>

@@ -137,7 +137,7 @@ const Home = () => {
           isMotorsError,
           motorsError,
           MotorCard,
-          "motors"
+          "motor"
         )}
         {renderSection(
           "Popular in Furniture for Sale",

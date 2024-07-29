@@ -1,11 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Admin from "../pages/admin";
 import AdminContainer from "../Container/AdminContainer";
+import Admin from "../pages/admin";
+import PropertyTable from "../pages/admin/Property/PropertyTable";
+import MotorsTable from "../pages/admin/motors/motorsTable";
+import FurnitureTable from "../pages/admin/furniture/Table";
+import ElectronicsTable from "../pages/admin/electronics/table";
 import PropertyCreate from "../pages/admin/Property/propertyCreate";
 import EditPropertyForm from "../pages/admin/Property/EditProperty";
-import EditMotorForm from "../pages/admin/motors/EditMotor";
 import MotorsForm from "../pages/admin/motors/createMotors";
+import EditMotorForm from "../pages/admin/motors/EditMotor";
 import FurnitureForm from "../pages/admin/furniture/CreateFurniture";
 import EditFurnitureForm from "../pages/admin/furniture/EditFurniture";
 import ElectronicsForm from "../pages/admin/electronics/Form";
@@ -15,7 +19,17 @@ const Private = () => {
     <div>
       <Routes>
         <Route path="/admin" element={<AdminContainer />}>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route path="property" element={<PropertyTable />} />
+            <Route path="motors" element={<MotorsTable />} />
+            <Route path="furniture" element={<FurnitureTable />} />
+            <Route path="electronics" element={<ElectronicsTable />} />
+            <Route path="jobs" element={<div>Jobs Table Placeholder</div>} />
+            <Route
+              path="community"
+              element={<div>Community Table Placeholder</div>}
+            />
+          </Route>
           <Route path="/admin/property/create" element={<PropertyCreate />} />
           <Route path="/admin/motors/create" element={<MotorsForm />} />
           <Route path="/admin/furniture/create" element={<FurnitureForm />} />
@@ -32,10 +46,7 @@ const Private = () => {
             path="/admin/property/edit/:propertyId"
             element={<EditPropertyForm />}
           />
-          <Route
-            path="/admin/motor/edit/:motorId"
-            element={<EditMotorForm />}
-          />
+          <Route path="/admin/motor/edit/:id" element={<EditMotorForm />} />
           <Route
             path="/admin/electronics/edit/:ElectronicsId"
             element={<EditElectronicsForm />}
@@ -47,3 +58,57 @@ const Private = () => {
 };
 
 export default Private;
+// import React from "react";
+// import { Routes, Route } from "react-router-dom";
+// import AdminContainer from "../Container/AdminContainer";
+// import DashboardArea from "../pages/admin";
+// import PropertyCreate from "../pages/admin/Property/propertyCreate";
+// import EditPropertyForm from "../pages/admin/Property/EditProperty";
+// import EditMotorForm from "../pages/admin/motors/EditMotor";
+// import MotorsForm from "../pages/admin/motors/createMotors";
+// import FurnitureForm from "../pages/admin/furniture/CreateFurniture";
+// import EditFurnitureForm from "../pages/admin/furniture/EditFurniture";
+// import ElectronicsForm from "../pages/admin/electronics/Form";
+// import PropertyTable from "../pages/admin/Property/PropertyTable";
+// import MotorsTable from "../pages/admin/motors/motorsTable";
+// import EditElectronicsForm from "../pages/admin/electronics/EditElectronics";
+// import FurnitureTable from "../pages/admin/furniture/Table";
+// import ElectronicsTable from "../pages/admin/electronics/table";
+// const Private = () => {
+//   return (
+//     <Routes>
+//       <Route path="/admin" element={<AdminContainer />}>
+//         <Route path="" element={<DashboardArea />}>
+//           <Route path="property/create" element={<PropertyCreate />} />
+//           <Route path="motors/create" element={<MotorsForm />} />
+//           <Route path="furniture/create" element={<FurnitureForm />} />
+//           <Route
+//             path="furniture/edit/:FurnitureId"
+//             element={<EditFurnitureForm />}
+//           />
+//           <Route path="electronics/create" element={<ElectronicsForm />} />
+//           <Route
+//             path="property/edit/:propertyId"
+//             element={<EditPropertyForm />}
+//           />
+//           <Route path="motor/edit/:id" element={<EditMotorForm />} />
+//           <Route
+//             path="electronics/edit/:ElectronicsId"
+//             element={<EditElectronicsForm />}
+//           />
+//           <Route path="property" element={<PropertyTable />} />
+//           <Route path="motors" element={<MotorsTable />} />
+//           <Route path="furniture" element={<FurnitureTable />} />
+//           <Route path="electronics" element={<ElectronicsTable />} />
+//           <Route path="jobs" element={<div>Jobs Table Placeholder</div>} />
+//           <Route
+//             path="community"
+//             element={<div>Community Table Placeholder</div>}
+//           />
+//         </Route>
+//       </Route>
+//     </Routes>
+//   );
+// };
+
+// export default Private;

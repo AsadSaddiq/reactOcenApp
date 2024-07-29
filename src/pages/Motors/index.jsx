@@ -1,10 +1,3 @@
-// import React from "react";
-
-// const Motors = () => {
-//   return <div>Motors</div>;
-// };
-
-// export default Motors;
 import React, { useEffect } from "react";
 import MotorCard from "./components/motor";
 import { useGetMotorsApiQuery } from "../../redux/features/motors/motorsApi";

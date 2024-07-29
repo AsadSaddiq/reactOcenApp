@@ -4,7 +4,7 @@ import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import { useGetElectronicsApiQuery } from "../../../redux/features/electronics/electronics.service";
-const Table = () => {
+const ElectronicsTable = () => {
   const [rowSelection, setRowSelection] = useState({});
   const [selectedLicense, setSelectedLicense] = useState(null);
   const [sorting, setSorting] = useState([]);
@@ -217,4 +217,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default ElectronicsTable;

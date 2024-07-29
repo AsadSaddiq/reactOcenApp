@@ -55,11 +55,11 @@ const EditPropertyForm = () => {
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: img.image, // URL of the image
+          url: `https\\localhost:8000${img.image}`, // URL of the image
         })) || []
       );
     }
-  }, [property]);
+  }, [property, form]);
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -113,11 +113,17 @@ const EditPropertyForm = () => {
         formData.append(key, values[key]);
       }
     }
-
     try {
-      await updateProperty({ id: propertyId, formData });
-      message.success("Property updated successfully!");
-      navigate("/admin");
+      const response = await updateProperty({ id: propertyId, formData });
+
+      // Assuming `response` has a status property to check if the update was successful
+      if (response.status === 200) {
+        // or whatever status code indicates success
+        message.success("Property updated successfully!");
+        navigate("/admin");
+      } else {
+        message.error("Failed to update property.");
+      }
     } catch (error) {
       message.error("Failed to update property.");
       console.error(error);
@@ -243,6 +249,13 @@ const EditPropertyForm = () => {
                 </Form.Item>
                 <Form.Item
                   className="min-w-[280px] mb-1"
+                  label="Bed"
+                  name="bed"
+                >
+                  <InputNumber className="flex w-full" />
+                </Form.Item>
+                <Form.Item
+                  className="min-w-[280px] mb-1"
                   label="Bathrooms"
                   name="bathrooms"
                 >
@@ -284,59 +297,35 @@ const EditPropertyForm = () => {
                   <InputNumber className="flex w-full" />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
-                  label="Furnished"
-                  name="is_furnished"
-                  valuePropName="checked"
-                >
-                  <Checkbox />
-                </Form.Item>
-                <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
-                  label="Security System"
-                  name="is_security_system"
-                  valuePropName="checked"
-                >
-                  <Checkbox />
-                </Form.Item>
-                <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
-                  label="Area"
+                  className="min-w-[280px] mb-1"
+                  label="Area (sq. ft.)"
                   name="area"
                 >
-                  <Input />
+                  <InputNumber className="flex w-full" />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="City"
                   name="city"
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Address"
                   name="address"
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Rent Amount"
                   name="rent_amount"
                 >
-                  <Input />
+                  <InputNumber className="flex w-full" />
                 </Form.Item>
-
                 <Form.Item
                   className="min-w-[280px] mb-1"
-                  label="Bed"
-                  name="bed"
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
                   label="Rent Period"
                   name="rent_period"
                 >
@@ -346,7 +335,7 @@ const EditPropertyForm = () => {
                   </Select>
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Currency"
                   name="currency"
                 >
@@ -357,59 +346,64 @@ const EditPropertyForm = () => {
                   </Select>
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Available From"
                   name="available_from"
                 >
-                  <DatePicker className="w-full" />
+                  <DatePicker className="flex w-full" format="YYYY-MM-DD" />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Contact Name"
                   name="contact_name"
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Contact Email"
                   name="contact_email"
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  className="min-w-[280px] mb-1 p-0"
+                  className="min-w-[280px] mb-1"
                   label="Contact Phone"
                   name="contact_phone"
                 >
                   <Input />
                 </Form.Item>
               </div>
+              <div className="w-full">
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  className="mb-4"
+                >
+                  <TextArea rows={4} />
+                </Form.Item>
+                <Form.Item name="amenities" label="Amenities">
+                  <Select mode="multiple">
+                    {amenities?.map((amenity) => (
+                      <Select.Option
+                        key={amenity.id}
+                        value={amenity.id.toString()}
+                      >
+                        {amenity.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Form.Item name="is_featured" valuePropName="checked">
+                  <Checkbox>Featured</Checkbox>
+                </Form.Item>
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    Update Property
+                  </Button>
+                </Form.Item>
+              </div>
             </div>
-            <div className="flex mb-2 text-lg border-b">Amenities</div>
-            <div className="flex flex-wrap justify-around mt-4">
-              <Form.Item name="amenities">
-                <Checkbox.Group>
-                  {amenities?.map((amenity) => (
-                    <Checkbox key={amenity.id} value={amenity.id.toString()}>
-                      {amenity.name}
-                    </Checkbox>
-                  ))}
-                </Checkbox.Group>
-              </Form.Item>
-            </div>
-            <Form.Item
-              className="min-w-[280px] mb-1 p-0"
-              label="Description"
-              name="description"
-            >
-              <TextArea rows={4} />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Update Property
-              </Button>
-            </Form.Item>
           </div>
         </Form>
       </div>
