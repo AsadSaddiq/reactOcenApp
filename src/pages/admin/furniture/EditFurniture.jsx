@@ -142,14 +142,32 @@ const EditFurnitureForm = () => {
           : null,
       });
 
-      setFileList(
-        furniture.furniture_images?.map((img) => ({
+      //   setFileList(
+      //     furniture.furniture_images?.map((img) => ({
+      //       uid: img.id.toString(), // Unique identifier for each file
+      //       name: img.image.split("/").pop(), // Name of the file
+      //       status: "done", // Mark file as already uploaded
+      //       url: `http://localhost:8000/${img.image}`,
+      //     })) || []
+      //   );
+      // }
+      if (furniture.images) {
+        console.log("Furniture images:", furniture.images); // Log images array
+        const newFileList = furniture.images.map((img) => ({
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: `http://localhost:8000/${img.image}`,
-        })) || []
-      );
+          url: `http://127.0.0.1:8000${img.image}`, // URL of the image
+        }));
+        setFileList(newFileList);
+        console.log("Updated fileList state:", newFileList); // Log the new fileList state
+      } else {
+        console.warn(
+          "images property is missing in furniture object or is empty."
+        );
+      }
+    } else {
+      console.warn("Furniture data is not available.");
     }
   }, [furniture]);
 

@@ -2643,7 +2643,6 @@ const CURRENCY_CHOICES = [
   { value: "USD", label: "USD" },
   { value: "EUR", label: "EUR" },
   { value: "GBP", label: "GBP" },
-  // Add more currency choices
 ];
 
 const EditMotorForm = () => {
@@ -2662,6 +2661,8 @@ const EditMotorForm = () => {
 
   useEffect(() => {
     if (motor) {
+      console.log("Fetched motor data:", motor); // Log fetched motor data
+
       form.setFieldsValue({
         ...motor,
         available_from: motor.available_from
@@ -2670,19 +2671,28 @@ const EditMotorForm = () => {
         insurance_expiry_date: motor.insurance_expiry_date
           ? moment(motor.insurance_expiry_date)
           : null,
-        features: motor.features.map((feature) => feature.id), // Set selected features
+        features: motor.features
+          ? motor.features.map((feature) => feature.id)
+          : [], // Set selected features
       });
 
-      setFileList(
-        motor.motor_images?.map((img) => ({
+      if (motor.images) {
+        console.log("Motor images:", motor.images); // Log images array
+        const newFileList = motor.images.map((img) => ({
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: img.image, // URL of the image
-        })) || []
-      );
+          url: `http://127.0.0.1:8000${img.image}`, // URL of the image
+        }));
+        setFileList(newFileList);
+        console.log("Updated fileList state:", newFileList); // Log the new fileList state
+      } else {
+        console.warn("images property is missing in motor object or is empty.");
+      }
+    } else {
+      console.warn("Motor data is not available.");
     }
-  }, [motor]);
+  }, [motor, form]); // Ensure form dependency is added
 
   useEffect(() => {
     if (featureData) {

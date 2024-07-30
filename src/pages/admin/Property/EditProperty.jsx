@@ -38,28 +38,68 @@ const EditPropertyForm = () => {
 
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
-
   useEffect(() => {
     if (property) {
+      console.log("Fetched property data:", property);
+
       form.setFieldsValue({
         ...property,
         available_from: property.available_from
           ? moment(property.available_from)
           : null,
+        insurance_expiry_date: property.insurance_expiry_date
+          ? moment(property.insurance_expiry_date)
+          : null,
         amenities:
           property.amenities?.map((amenity) => amenity.id.toString()) || [],
       });
 
-      setFileList(
-        property.property_images?.map((img) => ({
-          uid: img.id.toString(), // Unique identifier for each file
-          name: img.image.split("/").pop(), // Name of the file
-          status: "done", // Mark file as already uploaded
-          url: `https\\localhost:8000${img.image}`, // URL of the image
-        })) || []
-      );
+      if (property.property_images) {
+        console.log("Property images:", property.property_images);
+
+        const newFileList = property.property_images.map((img) => {
+          console.log("Mapping image:", img);
+          return {
+            uid: img.id.toString(),
+            name: img.image.split("/").pop(),
+            status: "done",
+            url: `http://127.0.0.1:8000${img.property_images}`,
+          };
+        });
+
+        console.log("New fileList before set:", newFileList);
+        setFileList(newFileList);
+        console.log("Updated fileList state:", newFileList);
+      } else {
+        console.warn("No images found in motor object.");
+      }
+    } else {
+      console.warn("No motor data available.");
     }
   }, [property, form]);
+
+  // useEffect(() => {
+  //   if (property) {
+  //     form.setFieldsValue({
+  //       ...property,
+  //       available_from: property.available_from
+  //         ? moment(property.available_from)
+  //         : null,
+  //       amenities:
+  //         property.amenities?.map((amenity) => amenity.id.toString()) || [],
+  //     });
+
+  //     setFileList(
+  //       property.property_images?.map((img) => ({
+  //         uid: img.id.toString(), // Unique identifier for each file
+  //         name: img.image.split("/").pop(), // Name of the file
+  //         status: "done", // Mark file as already uploaded
+  //         url: `http://127.0.0.1:8000/${img.image}`, // URL of the image
+  //         // src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
+  //       })) || []
+  //     );
+  //   }
+  // }, [property, form]);
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -117,7 +157,7 @@ const EditPropertyForm = () => {
       const response = await updateProperty({ id: propertyId, formData });
 
       // Assuming `response` has a status property to check if the update was successful
-      if (response.status === 200) {
+      if (response.status === 201) {
         // or whatever status code indicates success
         message.success("Property updated successfully!");
         navigate("/admin");
@@ -169,7 +209,7 @@ const EditPropertyForm = () => {
               Please enter at least three images
             </div>
             <div className="flex mt-2 items-center">
-              <Form.Item
+              {/* <Form.Item
                 name="images"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
@@ -188,6 +228,29 @@ const EditPropertyForm = () => {
                         border: 0,
                         background: "none",
                       }}
+                      type="button"
+                    >
+                      <PlusOutlined />
+                      <div>Upload</div>
+                    </button>
+                  )}
+                </Upload>
+              </Form.Item> */}
+              <Form.Item
+                name="images"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              >
+                <Upload
+                  listType="picture-card"
+                  fileList={fileList}
+                  onChange={handleChange}
+                  onPreview={handlePreview}
+                  customRequest={dummyRequest}
+                >
+                  {fileList.length >= 8 ? null : (
+                    <button
+                      style={{ border: 0, background: "none" }}
                       type="button"
                     >
                       <PlusOutlined />

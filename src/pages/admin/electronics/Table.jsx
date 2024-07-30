@@ -81,7 +81,7 @@ const ElectronicsTable = () => {
             maxSize: 1,
           },
           {
-            accessorKey: "model",
+            accessorKey: "model_number",
             header: "Model",
             minSize: 0,
             size: 1,
@@ -171,7 +171,7 @@ const ElectronicsTable = () => {
                   });
                   console.log(row.id);
                   setSelectedLicense(electronics.find((e) => e.Id === row.id));
-                  navigate(`/admin/electronics/edit/${row.id}`, {
+                  navigate(`/admin/electronics/edit/${row.original.id}`, {
                     state: {
                       propertyId: row.id,
                     },

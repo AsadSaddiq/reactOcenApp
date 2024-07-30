@@ -159,12 +159,13 @@ const MotorsTable = () => {
               getRowId={(row) => row.Id}
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => {
+                  console.log(row);
                   setRowSelection({
                     [row.id]: true,
                   });
                   setSelectedLicense(motors.find((e) => e.Id === row.id));
-                  console.log(row.id);
-                  navigate(`/admin/motor/edit/${row.id}`, {
+                  console.log(row.original.id);
+                  navigate(`/admin/motor/edit/${row.original.id}`, {
                     state: {
                       motorId: row.id,
                     },
