@@ -4,6 +4,7 @@ import { FaEnvelope, FaPhone } from "react-icons/fa";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const ElectornicsCard = ({ electronics }) => {
   const navigate = useNavigate();
@@ -24,14 +25,14 @@ const ElectornicsCard = ({ electronics }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-      <div
-        className="flex w-full sm:w-2/4 cursor-pointer"
-        onClick={() => navigate(`/electronics/detail/${electronics.id}`)}
-      >
+    <div
+      className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105"
+      onClick={() => navigate(`/electronics/detail/${electronics.id}`)}
+    >
+      <div className="flex w-full sm:w-2/4 cursor-pointer">
         <img
           className="object-cover w-full h-64 sm:h-auto"
-          src={`http://127.0.0.1:8000${electronics?.images[0]?.image}`}
+          src={`${apiUrl}${electronics?.images[0]?.image}`}
           alt="electronics"
         />
       </div>
@@ -39,7 +40,8 @@ const ElectornicsCard = ({ electronics }) => {
         <div>
           <div className="flex items-baseline mb-2">
             <div className="text-2xl font-bold text-blue-600">
-              {electronics?.currency.toUpperCase()} {electronics?.price}
+              {electronics?.currency.toUpperCase()}{" "}
+              {parseFloat(electronics?.price)}
             </div>
           </div>
           <div className="text-sm mt-1 first-letter:capitalize font-medium text-gray-600">
@@ -75,7 +77,7 @@ const ElectornicsCard = ({ electronics }) => {
           </Button>
           <Button
             type="primary"
-            className="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white"
+            className="flex items-center justify-center bg-btnPrimary hover:bg-green-600 text-white"
             onClick={handleWhatsAppClick}
           >
             <AiOutlineWhatsApp className="w-5 h-5" />

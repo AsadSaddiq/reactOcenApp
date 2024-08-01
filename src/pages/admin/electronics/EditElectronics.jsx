@@ -9,6 +9,8 @@ import {
   Upload,
   message,
   Space,
+  Row,
+  Col,
 } from "antd";
 import moment from "moment";
 import {
@@ -18,6 +20,8 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const { Option } = Select;
 const POWER_UNIT_CHOICES = [
   ["watt", "Watt"],
@@ -216,7 +220,7 @@ const EditElectronicsForm = () => {
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: img.image, // URL of the image
+          url: `${apiUrl}${img.image}`, // URL of the image
         })) || []
       );
     }
@@ -329,9 +333,13 @@ const EditElectronicsForm = () => {
                 name="images"
                 valuePropName="fileList"
                 getValueFromEvent={(e) => e?.fileList || []}
-                className="min-w-[280px] p-0 mb-4"
+                className="flex"
                 wrapperCol={{ span: 24 }}
               >
+                {" "}
+                {/* {fileList.map((file) => (
+                  <></>
+                ))} */}
                 <Upload
                   listType="picture-card"
                   fileList={fileList}
@@ -346,7 +354,6 @@ const EditElectronicsForm = () => {
               </Form.Item>
             </div>
 
-            {/* Electronics Information Section */}
             <div className="flex mb-4 text-lg border-b">
               Electronics Information
             </div>

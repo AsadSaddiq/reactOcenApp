@@ -1,4 +1,5 @@
 import React from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const StreamCard = ({ element, index }) => {
   // Log the element for debugging
@@ -7,7 +8,7 @@ const StreamCard = ({ element, index }) => {
   // Determine the image source
   const imageSrc =
     element?.property_images && element.property_images.length > 0
-      ? `http://127.0.0.1:8000/${element.property_images[0].image}`
+      ? `${apiUrl}${element.property_images[0].image}`
       : "path_to_default_image"; // Provide a default image path or use a placeholder
 
   return (

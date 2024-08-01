@@ -20,6 +20,7 @@ import {
 } from "../../../redux/features/property/propertyApi";
 
 const { TextArea } = Input;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const EditPropertyForm = () => {
   const { propertyId } = useParams();
@@ -63,8 +64,9 @@ const EditPropertyForm = () => {
             uid: img.id.toString(),
             name: img.image.split("/").pop(),
             status: "done",
-            url: `http://127.0.0.1:8000${img.property_images}`,
+            url: `${apiUrl}${img.image}`,
           };
+          apiUrl;
         });
 
         console.log("New fileList before set:", newFileList);
@@ -77,29 +79,6 @@ const EditPropertyForm = () => {
       console.warn("No motor data available.");
     }
   }, [property, form]);
-
-  // useEffect(() => {
-  //   if (property) {
-  //     form.setFieldsValue({
-  //       ...property,
-  //       available_from: property.available_from
-  //         ? moment(property.available_from)
-  //         : null,
-  //       amenities:
-  //         property.amenities?.map((amenity) => amenity.id.toString()) || [],
-  //     });
-
-  //     setFileList(
-  //       property.property_images?.map((img) => ({
-  //         uid: img.id.toString(), // Unique identifier for each file
-  //         name: img.image.split("/").pop(), // Name of the file
-  //         status: "done", // Mark file as already uploaded
-  //         url: `http://127.0.0.1:8000/${img.image}`, // URL of the image
-  //         // src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
-  //       })) || []
-  //     );
-  //   }
-  // }, [property, form]);
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -156,9 +135,7 @@ const EditPropertyForm = () => {
     try {
       const response = await updateProperty({ id: propertyId, formData });
 
-      // Assuming `response` has a status property to check if the update was successful
       if (response.status === 201) {
-        // or whatever status code indicates success
         message.success("Property updated successfully!");
         navigate("/admin");
       } else {
@@ -209,38 +186,12 @@ const EditPropertyForm = () => {
               Please enter at least three images
             </div>
             <div className="flex mt-2 items-center">
-              {/* <Form.Item
-                name="images"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                className="flex it"
-              >
-                <Upload
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={handleChange}
-                  onPreview={handlePreview}
-                  customRequest={dummyRequest}
-                >
-                  {fileList.length >= 8 ? null : (
-                    <button
-                      style={{
-                        border: 0,
-                        background: "none",
-                      }}
-                      type="button"
-                    >
-                      <PlusOutlined />
-                      <div>Upload</div>
-                    </button>
-                  )}
-                </Upload>
-              </Form.Item> */}
               <Form.Item
                 name="images"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
+                {" "}
                 <Upload
                   listType="picture-card"
                   fileList={fileList}

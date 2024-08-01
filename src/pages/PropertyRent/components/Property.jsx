@@ -6,6 +6,7 @@ import { LiaBedSolid } from "react-icons/lia";
 import { PiBathtubLight } from "react-icons/pi";
 import { CiLocationOn, CiRuler } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const PropertyCard = ({ property }) => {
   const navigate = useNavigate();
@@ -30,14 +31,14 @@ const PropertyCard = ({ property }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-      <div
-        className="flex w-full sm:w-2/4 cursor-pointer"
-        onClick={() => navigate(`/property/detail/${property.id}`)}
-      >
+    <div
+      className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105"
+      onClick={() => navigate(`/property/detail/${property.id}`)}
+    >
+      <div className="flex w-full sm:w-2/4 cursor-pointer">
         <img
           className="object-cover w-full h-64 sm:h-auto"
-          src={`http://127.0.0.1:8000${property?.property_images[0]?.image}`}
+          src={`${apiUrl}${property?.property_images[0]?.image}`}
           alt="Property"
         />
       </div>
@@ -46,7 +47,7 @@ const PropertyCard = ({ property }) => {
           <div className="flex items-baseline mb-2">
             <div className="text-2xl font-bold text-blue-600">
               {property?.currency.toUpperCase()}{" "}
-              {formatNumber(property?.rent_amount)}
+              {parseFloat(property?.rent_amount)}
             </div>
             <div className="text-lg font-medium ml-2 text-gray-500">
               {property?.rent_period}

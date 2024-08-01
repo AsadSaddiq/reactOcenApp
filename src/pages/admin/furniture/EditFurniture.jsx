@@ -23,6 +23,7 @@ import "moment/locale/en-gb"; // import your desired locale
 moment.locale("en-gb"); // set your desired locale globally
 
 const { TextArea } = Input;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const FURNITURE_TYPE_CHOICES = [
   { value: "table", label: "Table" },
@@ -120,7 +121,7 @@ const CURRENCY_CHOICES = [
 
 const EditFurnitureForm = () => {
   const { FurnitureId } = useParams();
-  const rootUrl = "localhost:8000";
+
   const [updateFurniture] = useUpdateFurnitureApiMutation();
   const {
     data: furniture,
@@ -157,7 +158,7 @@ const EditFurnitureForm = () => {
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: `http://127.0.0.1:8000${img.image}`, // URL of the image
+          url: `${apiUrl}${img.image}`, // URL of the image
         }));
         setFileList(newFileList);
         console.log("Updated fileList state:", newFileList); // Log the new fileList state
@@ -251,6 +252,7 @@ const EditFurnitureForm = () => {
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
+                {" "}
                 <Upload
                   listType="picture-card"
                   fileList={fileList}

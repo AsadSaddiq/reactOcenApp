@@ -1,4 +1,5 @@
 import React from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const MotorCard = ({ element, index }) => {
   // console.log(element);
@@ -13,7 +14,7 @@ const MotorCard = ({ element, index }) => {
       >
         <img
           className="rounded-t-md w-full h-full object-cover"
-          src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
+          src={`${apiUrl}${element?.images[0]?.image}`}
           alt=""
         />
       </div>

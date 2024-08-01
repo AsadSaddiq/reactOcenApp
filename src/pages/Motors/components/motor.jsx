@@ -5,6 +5,8 @@ import { AiOutlineWhatsApp } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const MotorCard = ({ motor }) => {
   const navigate = useNavigate();
 
@@ -24,14 +26,14 @@ const MotorCard = ({ motor }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105">
-      <div
-        className="flex w-full sm:w-2/4 cursor-pointer"
-        onClick={() => navigate(`/motor/detail/${motor.id}`)}
-      >
+    <div
+      className="flex flex-col sm:flex-row mt-6 w-full rounded-lg overflow-hidden h-45 shadow-lg transform transition duration-300 hover:scale-105"
+      onClick={() => navigate(`/motor/detail/${motor.id}`)}
+    >
+      <div className="flex w-full sm:w-2/4 cursor-pointer">
         <img
-          className="object-cover w-full h-64 sm:h-auto"
-          src={`http://127.0.0.1:8000${motor?.images[0]?.image}`}
+          className="object-cover w-full sm:h-auto"
+          src={`${apiUrl}${motor?.images[0]?.image}`}
           alt="Motor"
         />
       </div>
@@ -39,7 +41,7 @@ const MotorCard = ({ motor }) => {
         <div>
           <div className="flex items-baseline mb-2">
             <div className="text-2xl font-bold text-blue-600">
-              {motor?.currency.toUpperCase()} {motor?.price}
+              {motor?.currency.toUpperCase()} {parseFloat(motor?.price)}
             </div>
           </div>
           <div className="text-sm mt-1 first-letter:capitalize font-medium text-gray-600">

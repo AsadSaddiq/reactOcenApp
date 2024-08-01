@@ -64,7 +64,6 @@ const Home = () => {
   useEffect(() => {
     if (data) {
       try {
-        // Directly assign data without categorizing
         setParsedData(data);
       } catch (e) {
         console.error("Failed to parse stream data", e);
@@ -114,7 +113,7 @@ const Home = () => {
 
         {renderSection(
           "Popular in Residential for Rent",
-          property,
+          property?.slice(0, 5),
           isPropertyLoading,
           isPropertyError,
           propertyError,
@@ -123,7 +122,7 @@ const Home = () => {
         )}
         {renderSection(
           "Popular in Residential for Sale",
-          property,
+          property?.slice(0, 5),
           isPropertyLoading,
           isPropertyError,
           propertyError,
@@ -132,7 +131,7 @@ const Home = () => {
         )}
         {renderSection(
           "Popular in Motors for Sale",
-          motors,
+          motors?.slice(0, 5),
           isMotorsLoading,
           isMotorsError,
           motorsError,
@@ -141,7 +140,7 @@ const Home = () => {
         )}
         {renderSection(
           "Popular in Furniture for Sale",
-          furniture,
+          furniture?.slice(0, 5),
           isFurnitureLoading,
           isFurnitureError,
           furnitureError,
@@ -150,7 +149,7 @@ const Home = () => {
         )}
         {renderSection(
           "Popular in Electronics for Sale",
-          electronics,
+          electronics?.slice(0, 5),
           isElectronicsLoading,
           isElectronicsError,
           electronicsError,
@@ -170,13 +169,13 @@ const Home = () => {
               <pre>{JSON.stringify(streamDataError, null, 2)}</pre>
             </>
           ) : (
-            <div className="flex flex-col ts:grid ts:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 w-full flex-wrap items-center mb-12 sm:mb-0 justify-between">
+            <div className="flex flex-col ts:grid ts:grid-cols-2 sm:grid-cols-3 img lg:grid-cols-4 xl:grid-cols-5 gap-x-4 w-full flex-wrap items-center mb-12 sm:mb-0 justify-between">
               {parsedData.map((element, index) => {
                 const CardComponent = getCardComponent(element.model);
-                const itemData = element.data || {}; // Safeguard against undefined data
+                const itemData = element.data || {};
                 return (
                   <div
-                    key={itemData.id || index} // Use a fallback key
+                    key={itemData.id || index}
                     onClick={() =>
                       navigate(
                         `/${element.model.toLowerCase()}/detail/${itemData.id}`

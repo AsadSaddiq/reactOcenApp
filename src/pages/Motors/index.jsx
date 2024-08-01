@@ -5,10 +5,6 @@ import { useGetMotorsApiQuery } from "../../redux/features/motors/motorsApi";
 const Motors = () => {
   const { data: motors, isError, isLoading } = useGetMotorsApiQuery();
 
-  useEffect(() => {
-    console.log(motors);
-  }, [motors]);
-
   return (
     <div className="flex justify-center w-full items-center h-full">
       <div className="flex justify-center flex-col w-[90vw]">

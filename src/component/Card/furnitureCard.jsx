@@ -1,4 +1,6 @@
 import React from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const FurnitureCard = ({ element, index }) => {
   // console.log(element);
   return (
@@ -9,7 +11,7 @@ const FurnitureCard = ({ element, index }) => {
       <div className="w-full h-32 overflow-hidden">
         <img
           className="rounded-t-md w-full h-full object-cover"
-          src={`http://127.0.0.1:8000/${element?.images[0]?.image}`}
+          src={`${apiUrl}${element?.images[0]?.image}`}
         />
       </div>
       <div className="flex flex-col p-2">

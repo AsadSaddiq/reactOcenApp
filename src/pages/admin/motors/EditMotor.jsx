@@ -2623,6 +2623,7 @@ import "moment/locale/en-gb"; // import your desired locale
 moment.locale("en-gb"); // set your desired locale globally
 
 const { TextArea } = Input;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const MOTOR_TYPE_CHOICES = [
   { value: "car", label: "Car" },
@@ -2682,7 +2683,7 @@ const EditMotorForm = () => {
           uid: img.id.toString(), // Unique identifier for each file
           name: img.image.split("/").pop(), // Name of the file
           status: "done", // Mark file as already uploaded
-          url: `http://127.0.0.1:8000${img.image}`, // URL of the image
+          url: `${apiUrl}${img.image}`, // URL of the image
         }));
         setFileList(newFileList);
         console.log("Updated fileList state:", newFileList); // Log the new fileList state
@@ -2754,7 +2755,7 @@ const EditMotorForm = () => {
     try {
       await updateMotor({ id: motorId, formData });
       message.success("Motor updated successfully!");
-      navigate("/admin/motor");
+      navigate("/admin/motors");
     } catch (error) {
       message.error("Failed to update motor.");
       console.error(error);
@@ -2783,6 +2784,7 @@ const EditMotorForm = () => {
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
+                {" "}
                 <Upload
                   listType="picture-card"
                   fileList={fileList}

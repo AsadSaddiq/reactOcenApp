@@ -12,7 +12,7 @@ export default {
     },
     extend: {
       colors: {
-        btnPrimary: "",
+        btnPrimary: "#add8e6",
         btnSecondary: "",
         textPrimary: "",
         textSecondary: "",

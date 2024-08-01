@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const formatNumber = (number) => {
     return parseFloat(number.toString());
@@ -37,7 +38,7 @@ const PropertyCard = ({ property }) => {
       >
         <img
           className="object-cover w-full h-64 sm:h-auto"
-          src={`http://127.0.0.1:8000${property?.property_images[0]?.image}`}
+          src={`${apiUrl}${property?.property_images[0]?.image}`}
           alt="Property"
         />
       </div>
