@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import MotorsTable from "./motors/motorsTable";
 import PropertyTable from "./Property/PropertyTable";
-import ElectronicsTable from "./electronics/table";
+// import ElectronicsTable from "./electronics/table";
 import FurnitureTable from "./furniture/Table";
 
 const DashboardArea = () => {
@@ -77,9 +77,7 @@ const DashboardArea = () => {
             </div>
           )}
           {selectedSection === "Electronic" && (
-            <div>
-              <ElectronicsTable />
-            </div>
+            <div>{/* <ElectronicsTable /> */}</div>
           )}
           {selectedSection === "Community" && (
             <div>Community Table Placeholder</div>
