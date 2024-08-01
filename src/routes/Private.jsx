@@ -5,7 +5,7 @@ import Admin from "../pages/admin";
 import PropertyTable from "../pages/admin/Property/PropertyTable";
 import MotorsTable from "../pages/admin/motors/motorsTable";
 import FurnitureTable from "../pages/admin/furniture/Table";
-import ElectronicsTable from "../pages/admin/electronics/table";
+// import ElectronicsTable from "../pages/admin/electronics/table";
 import PropertyCreate from "../pages/admin/Property/propertyCreate";
 import EditPropertyForm from "../pages/admin/Property/EditProperty";
 import MotorsForm from "../pages/admin/motors/createMotors";
@@ -23,7 +23,7 @@ const Private = () => {
             <Route path="property" element={<PropertyTable />} />
             <Route path="motors" element={<MotorsTable />} />
             <Route path="furniture" element={<FurnitureTable />} />
-            <Route path="electronics" element={<ElectronicsTable />} />
+            {/* <Route path="electronics" element={<ElectronicsTable />} /> */}
             <Route path="jobs" element={<div>Jobs Table Placeholder</div>} />
             <Route
               path="community"
